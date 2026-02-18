@@ -5,13 +5,13 @@ import { useState } from "react";
 export default function publier() {
 
   const categories: string[] = [
-    "International",
-    "Actualités locales",
-    "Économie",
-    "Sciences et technologies",
-    "Divertissement",
-    "Sports",
-    "Santé",
+    "🌍 International",
+    "📰 Actualités locales",
+    "📊 Économie",
+    "🔭 Sciences et technologies",
+    "✨ Divertissement",
+    "🏀 Sports",
+    "💊 Santé",
   ];
 
   const initialForm = {

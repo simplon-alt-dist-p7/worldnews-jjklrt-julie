@@ -26,10 +26,6 @@ export default function ArticleDetailPage() {
 let articleTitle = params.details as string;
 
   const articlesBaseUrl = "http://localhost:3009/api/articles";
-  const articleUrl = articleTitle ? `${articlesBaseUrl}/${articleTitle}` : "";
-  const favoriteUrl = articleUrl ? `${articleUrl}/favorite` : "";
-
-  const articlesBaseUrl = "http://localhost:3009/api/articles";
   const encodedTitle = articleTitle ? encodeURIComponent(articleTitle) : "";
   const articleUrl = encodedTitle ? `${articlesBaseUrl}/${encodedTitle}` : "";
   const favoriteUrl = articleUrl ? `${articleUrl}/favorite` : "";

@@ -18,7 +18,15 @@ export default function CategoryPage() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const categories = ["International", "Actualités locales", "Économie", "Sciences et technologies","Divertissement", "Sports","Santé"]; 
+  const categories = [
+    "🌍 International",
+    "📰 Actualités locales",
+    "📊 Économie",
+    "🔭 Sciences et technologies",
+    "✨ Divertissement",
+    "🏀 Sports",
+    "💊 Santé"
+  ]; 
 
  
   //   {

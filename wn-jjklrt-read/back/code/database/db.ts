@@ -4,14 +4,19 @@ import { Pool } from 'pg';
 import type { Pool as PgPool, QueryResult } from "pg";
 
 export const pool = new Pool({
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  host: process.env.DB_HOST,
-  port: Number(process.env.DB_PORT),
-  database: process.env.DB_NAME,
+  user: (process.env.DB_USER || "").trim(),
+  password: (process.env.DB_PASSWORD || "").trim(),
+  host: (process.env.DB_HOST || "").trim(),
+  port: Number((process.env.DB_PORT || "").trim()) || 5432,
+  database: (process.env.DB_NAME || "").trim(),
 });
 
-console.log(pool);
+console.log("DB config:", {
+  user: (process.env.DB_USER || "").trim(),
+  host: (process.env.DB_HOST || "").trim(),
+  port: Number((process.env.DB_PORT || "").trim()) || 5432,
+  database: (process.env.DB_NAME || "").trim(),
+});
 
 type Pg = PgPool;
 type Result = QueryResult<any>;

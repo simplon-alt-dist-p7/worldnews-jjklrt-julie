@@ -17,13 +17,13 @@ const json = { "Content-Type": "application/json" };
 
 export default function Edit() {
   const categories: string[] = [
-    "International",
-    "Actualités locales",
-    "Économie",
-    "Sciences et technologies",
-    "Divertissement",
-    "Sports",
-    "Santé",
+    "🌍 International",
+    "📰 Actualités locales",
+    "📊 Économie",
+    "🔭 Sciences et technologies",
+    "✨ Divertissement",
+    "🏀 Sports",
+    "💊 Santé",
   ];
 
   const [lookup, setLookup] = useState("");

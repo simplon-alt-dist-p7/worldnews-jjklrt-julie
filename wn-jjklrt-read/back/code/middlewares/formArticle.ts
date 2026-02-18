@@ -1,4 +1,4 @@
-import Joi from 'joi';
+import Joi, { ValidationErrorItem } from 'joi';
 import { Request, Response, NextFunction } from 'express';
 
 export const articleSchema = Joi.object({
@@ -42,10 +42,12 @@ export const articleSchema = Joi.object({
 
 export function validateArticle(req: Request, res: Response, next: NextFunction) {
   const { error } = articleSchema.validate(req.body, { abortEarly: false });
+
   if (error) {
-    const messages = error.details.map(detail => detail.message);
+    const messages = error.details.map((detail: ValidationErrorItem) => detail.message);
     console.log('Validation errors:', messages);
     return res.status(400).json({ errors: messages });
   }
+
   next();
 }

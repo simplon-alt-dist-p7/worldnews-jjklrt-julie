@@ -1,4 +1,6 @@
-import "dotenv/config";
+import dotenv from "dotenv";
+dotenv.config({ path: '../.env' });
+dotenv.config({ path: './.env' });
 import express, { NextFunction, Request, Response } from "express";
 import "./database/checkConnection";
 import articlesRouter from "./router/articleRouter";
@@ -6,10 +8,14 @@ import articlesRouter from "./router/articleRouter";
 const app = express();
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
-  res.header("Access-Control-Allow-Credentials", "true");
+  const origin = req.headers.origin as string | undefined;
+  const allowed = (process.env.ALLOWED_ORIGINS || "http://localhost:3001").split(",").map(s => s.trim()).filter(Boolean);
+  if (origin && allowed.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+  }
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   if (req.method === "OPTIONS") {
     res.sendStatus(204);
     return;
