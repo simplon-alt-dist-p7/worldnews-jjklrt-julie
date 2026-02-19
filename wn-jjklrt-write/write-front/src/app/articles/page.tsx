@@ -2,6 +2,7 @@
 import Card from "@/components/articles/card";
 import { useEffect, useState } from "react";
 import styles from "./articles.module.css";
+
 type Article = {
   title: string;
   sub_title: string;
@@ -12,23 +13,37 @@ type Article = {
 };
 
 export default function Articles() {
+
   const [articles, setArticles] = useState<Article[]>([]);
+
   useEffect(() => {
-    const fetchAricles = async () => {
-      const res = await fetch("http://localhost:3310/api/articles");
-      if (!res.ok) {
+    const fetchArticles = async () => {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL;
+      if (!API_URL) {
+        console.error("NEXT_PUBLIC_API_URL n'est pas défini !");
         return;
       }
-      console.log(res);
-      const data = await res.json();
-      setArticles(data);
+
+      try {
+        const res = await fetch(`${API_URL}/api/articles`);
+        if (!res.ok) {
+          console.error("Erreur fetch:", res.status);
+          return;
+        }
+        const data = await res.json();
+        setArticles(data);
+      } catch (err) {
+        console.error("Erreur fetch:", err);
+      }
     };
-    fetchAricles();
+
+    fetchArticles();
   }, []);
+
   return (
     <div className={styles.publierPage}>
       <h1>Vos Articles</h1>
-      {articles ? <Card articles={articles} /> : <div>Pas d'articles pour le moment </div>}
+      {articles.length > 0 ? <Card articles={articles} /> : <div>Pas d'articles pour le moment</div>}
     </div>
   );
 }

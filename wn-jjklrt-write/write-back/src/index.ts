@@ -1,4 +1,6 @@
 import express from "express";
+// import "./config/checkConnection"; -> moved to waitForDb
+import { waitForDb } from "./config/waitForDb";
 
 const app = express();
 
@@ -57,15 +59,29 @@ app.use(router);
 
 /* ************************************************************************* */
 
-import "./config/checkConnection";
 // Get the port from the environment variables
-const port = process.env.APP_PORT;
+const port = Number(process.env.PORT) || 3002;
 
-// Start the server and listen on the specified port
-app
-  .listen(port, () => {
-    console.info(`Server is listening on port ${port}`);
-  })
-  .on("error", (err: Error) => {
-    console.error("Error:", err.message);
+// Wait for the database to be ready before starting the server
+async function startServer() {
+
+  //debug
+  console.log("DB CONFIG =>", {
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    database: process.env.DB_NAME
   });
+
+  await waitForDb();
+
+  // Start the server and listen on the specified port
+  app
+    .listen(port, "0.0.0.0", () => {
+      console.info(`Server is listening on port ${port}`);
+    })
+    .on("error", (err: Error) => {
+      console.error("Error:", err.message);
+    });
+    }
+
+startServer();

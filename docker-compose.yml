@@ -7,6 +7,14 @@ services:
       - "3001:3001"
     environment:
       NODE_ENV: production
+      PORT: 3001
+      DB_HOST: worldnews_db_writer
+      DB_PORT: 5432
+      DB_USER: julie
+      DB_PASSWORD: louvre
+      DB_NAME: worldnews_db_writer
+    depends_on:
+      - worldnews_db_writer
 
   read-front:
     build: ./wn-jjklrt-read/front
@@ -14,7 +22,7 @@ services:
       - "3010:3000"
     environment:
       NODE_ENV: production
-      NEXT_PUBLIC_API_URL: http://read-back:3001
+      NEXT_PUBLIC_API_URL: http://localhost:3001
     depends_on:
       - read-back
 
@@ -24,6 +32,14 @@ services:
       - "3002:3002"
     environment:
       NODE_ENV: production
+      PORT: 3002
+      DB_HOST: worldnews_db_writer
+      DB_PORT: 5432
+      DB_USER: julie
+      DB_PASSWORD: louvre
+      DB_NAME: worldnews_db_writer
+    depends_on:
+      - worldnews_db_writer
 
   write-front:
     build: ./wn-jjklrt-write/write-front
@@ -31,6 +47,21 @@ services:
       - "3020:3000"
     environment:
       NODE_ENV: production
-      NEXT_PUBLIC_API_URL: http://write-back:3002
+      NEXT_PUBLIC_API_URL: http://localhost:3002
     depends_on:
       - write-back
+
+  worldnews_db_writer:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: julie
+      POSTGRES_PASSWORD: louvre
+      POSTGRES_DB: worldnews_db_writer
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/db-init:/docker-entrypoint-initdb.d
+
+volumes:
+  postgres_data:

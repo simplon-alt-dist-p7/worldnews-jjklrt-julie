@@ -2,8 +2,9 @@ import dotenv from "dotenv";
 dotenv.config({ path: '../.env' });
 dotenv.config({ path: './.env' });
 import express, { NextFunction, Request, Response } from "express";
-import "./database/checkConnection";
+//import "./database/checkConnection"; --> moved to waitForDb
 import articlesRouter from "./router/articleRouter";
+import { waitForDb } from "./database/waitForDb";
 
 const app = express();
 
@@ -34,13 +35,42 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 });
 
 // Get the port from the environment variables
-const port = process.env.PORT;
+// const port = process.env.PORT;
 
-// Start the server and listen on the specified port
-app
-  .listen(port, () => {
-    console.info(`Server is listening on port ${port}`);
-  })
-  .on("error", (err: Error) => {
-    console.error("Error:", err.message);
+// // Start the server and listen on the specified port
+// app
+//   .listen(port, () => {
+//     console.info(`Server is listening on port ${port}`);
+//   })
+//   .on("error", (err: Error) => {
+//     console.error("Error:", err.message);
+//   });
+
+// Get the port from the environment variables
+const port = Number(process.env.PORT) || 3001;
+
+// Wait for the database to be ready before starting the server
+async function startServer() {
+
+  //debug
+  console.log("DB CONFIG =>", {
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    database: process.env.DB_NAME
   });
+
+  await waitForDb();
+
+  // Start the server and listen on the specified port
+  app
+    .listen(port, "0.0.0.0", () => {
+      console.info(`Server is listening on port ${port}`);
+    })
+    .on("error", (err: Error) => {
+      console.error("Error:", err.message);
+    });
+    }
+
+startServer();
+
+

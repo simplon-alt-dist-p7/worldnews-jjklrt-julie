@@ -9,7 +9,7 @@ interface Article {
   article_lead: string;
   body: string;
   published_at: string;
-  category:string;
+  categorie: string;
 }
 
 export default function Home() {
@@ -18,8 +18,9 @@ export default function Home() {
 
   useEffect(() => {
     const fetchArticles = async () => {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
       try {
-        const res = await fetch("http://localhost:3009/api/articles");
+        const res = await fetch(`${API_URL}/api/articles`);
         if (!res) {
             setArticles([]);
             setLoading(false);
@@ -93,7 +94,7 @@ export default function Home() {
                       {article.article_lead}
                     </p>
                     <p className="text-sm sm:text-base md:text-lg text-black line-clamp-3 font-puritan leading-relaxed">
-                      {article.category}
+                      {article.categorie}
                     </p>
                   </div>
                 </article>
