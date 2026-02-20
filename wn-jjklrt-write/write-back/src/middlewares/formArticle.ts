@@ -2,13 +2,13 @@ import Joi from 'joi';
 import { Request, Response, NextFunction } from 'express';
 
 const CATEGORIES = [
-    "🌍 International",
-    "📰 Actualités locales",
-    "📊 Économie",
-    "🔭 Sciences et technologies",
-    "✨ Divertissement",
-    "🏀 Sports",
-    "💊 Santé",
+    "International",
+    "Actualités locales",
+    "Économie",
+    "Sciences et technologies",
+    "Divertissement",
+    "Sports",
+    "Santé",
 ] as const;
 
 export const articleSchema = Joi.object({

@@ -12,18 +12,18 @@ type Article = {
   published_at: string;
 };
 
-const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
+// const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
 const json = { "Content-Type": "application/json" };
 
 export default function Edit() {
   const categories: string[] = [
-    "🌍 International",
-    "📰 Actualités locales",
-    "📊 Économie",
-    "🔭 Sciences et technologies",
-    "✨ Divertissement",
-    "🏀 Sports",
-    "💊 Santé",
+    "International",
+    "Actualités locales",
+    "Économie",
+    "Sciences et technologies",
+    "Divertissement",
+    "Sports",
+    "Santé",
   ];
 
   const [lookup, setLookup] = useState("");
@@ -48,9 +48,10 @@ export default function Edit() {
     setInfo(null);
     try {
        const res = await fetch(
-        `${API}/api/articles/${encodeURIComponent(lookup.trim())}`,
-        { cache: "no-store" },
+        `/api/articles/${encodeURIComponent(lookup.trim())}`,
+        { cache: "no-store" }
       );
+
       if (!res.ok) throw new Error("Article introuvable.");
       const data: Article = await res.json();
       setArticle(data);
@@ -80,12 +81,12 @@ export default function Edit() {
     setInfo(null);
     try {
       const res = await fetch(
-        `${API}/api/articles/${encodeURIComponent(article.title)}`,
+        `/api/articles/${encodeURIComponent(article.title)}`,
         {
           method: "PUT",
           headers: json,
           body: JSON.stringify(form),
-        },
+        }
       );
       const body = await res.json().catch(() => ({}));
       if (!res.ok)

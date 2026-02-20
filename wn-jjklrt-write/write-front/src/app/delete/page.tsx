@@ -13,7 +13,7 @@ type Article = {
   published_at: string;
 };
 
-const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
+// const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
 
 export default function DeleteArticle() {
   const [lookup, setLookup] = useState("");
@@ -34,7 +34,7 @@ export default function DeleteArticle() {
 
     try {
       const res = await fetch(
-        `${API}/api/articles/${encodeURIComponent(lookup.trim())}`,
+        `/api/articles/${encodeURIComponent(lookup.trim())}`,
         { cache: "no-store" }
       );
 
@@ -70,7 +70,7 @@ export default function DeleteArticle() {
     try {
       const res = await fetch(
         // `${API}/api/articles/${encodeURIComponent(article.title)}`,
-        `${API}/api/articles/${encodeURIComponent(article.title)}/soft-delete`, // soft-delete pour mise en archive
+        `/api/articles/${encodeURIComponent(article.title)}/soft-delete`, // soft-delete pour mise en archive
         { method: "DELETE" }
       );
 

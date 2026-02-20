@@ -19,13 +19,13 @@ export default function CategoryPage() {
   const [loading, setLoading] = useState(false);
 
   const categories = [
-    "🌍 International",
-    "📰 Actualités locales",
-    "📊 Économie",
-    "🔭 Sciences et technologies",
-    "✨ Divertissement",
-    "🏀 Sports",
-    "💊 Santé"
+    "International",
+    "Actualités locales",
+    "Économie",
+    "Sciences et technologies",
+    "Divertissement",
+    "Sports",
+    "Santé"
   ]; 
 
  

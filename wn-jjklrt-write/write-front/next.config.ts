@@ -1,6 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
-}
+  output: "standalone",
 
-module.exports = nextConfig
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: "/api/:path*",
+          destination: "http://write-back:3002/api/:path*",
+        },
+      ],
+    };
+  },
+};
+
+module.exports = nextConfig;

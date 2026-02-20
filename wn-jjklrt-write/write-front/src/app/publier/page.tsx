@@ -5,13 +5,13 @@ import { useState } from "react";
 export default function publier() {
 
   const categories: string[] = [
-    "🌍 International",
-    "📰 Actualités locales",
-    "📊 Économie",
-    "🔭 Sciences et technologies",
-    "✨ Divertissement",
-    "🏀 Sports",
-    "💊 Santé",
+    "International",
+    "Actualités locales",
+    "Économie",
+    "Sciences et technologies",
+    "Divertissement",
+    "Sports",
+    "Santé",
   ];
 
   const initialForm = {
@@ -38,7 +38,7 @@ export default function publier() {
     setErrors([]);
     setSuccess(false);
     try {
-      const res = await fetch ("http://localhost:3310/api/articles", {
+      const res = await fetch ("/api/articles", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
