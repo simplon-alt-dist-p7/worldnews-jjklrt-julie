@@ -6,10 +6,12 @@ L’application **Lecteur** est une application de consultation d’articles.
 Elle permet aux utilisateurs finaux de **consulter les articles publiés**, sans jamais intervenir sur leur création ou leur modification.
 
 L’application Lecteur fonctionne en collaboration avec l’application **Journaliste** :
+
 - **Journaliste** est responsable de la **création et publication** des articles
 - **Lecteur** est responsable de leur **consultation**
 
 Cette séparation respecte les principes des **microservices** et du **CQRS (Command / Query Responsibility Segregation)** :
+
 - Journaliste → écriture
 - Lecteur → lecture
 
@@ -36,11 +38,13 @@ L’application Lecteur est organisée selon une architecture **3 couches** :
 ### 1️⃣ Front
 
 **Rôle** :
+
 - Interface utilisateur
 - Affichage des articles
 - Appels HTTP vers l’API Lecteur
 
 **Technologies** :
+
 - Next.js
 - TypeScript
 
@@ -49,12 +53,14 @@ L’application Lecteur est organisée selon une architecture **3 couches** :
 ### 2️⃣ Back
 
 **Rôle** :
+
 - API REST
 - Exposition des endpoints de consultation
 - Accès aux données via la vue matérialisée
 - Aucune logique d’écriture métier
 
 **Technologies** :
+
 - Node.js
 - Express
 - TypeScript
@@ -64,14 +70,17 @@ L’application Lecteur est organisée selon une architecture **3 couches** :
 ### 3️⃣ Data
 
 **Rôle** :
+
 - Définition de la vue matérialisée
 - Scripts SQL versionnés
 - Rafraîchissement contrôlé des données
 
 **Technologies** :
+
 - PostgreSQL
 
 Le dossier `data` contient notamment :
+
 - les scripts de création de la vue matérialisée
 - les scripts de rafraîchissement
 - la documentation associée
@@ -99,11 +108,11 @@ L’arborescence pourra évoluer au cours du projet.
 
 ## ⚙️ Stack technique récapitulative
 
-| Couche | Technologies |
-|------|-------------|
-| Front | Next.js, TypeScript |
-| Back | Node.js, Express, TypeScript |
-| Data | PostgreSQL |
+| Couche | Technologies                 |
+| ------ | ---------------------------- |
+| Front  | Next.js, TypeScript          |
+| Back   | Node.js, Express, TypeScript |
+| Data   | PostgreSQL                   |
 
 ---
 
@@ -245,4 +254,3 @@ REFRESH MATERIALIZED VIEW lecteur.articles_lecture;
 
 Ce README a pour objectif de fournir une **vision claire et partagée** du rôle de l’application Lecteur, de son architecture et de son fonctionnement.
 Toute évolution majeure devra être documentée afin de maintenir une bonne coordination entre les équipes **Lecteur** et **Journaliste**.
-

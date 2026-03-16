@@ -13,9 +13,12 @@ export default async function OneArticlePage({ params }: any) {
   console.log("params =", params);
   const { title } = await params;
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/articles/${encodeURIComponent(title)}`, {
-    cache: "no-store",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/articles/${encodeURIComponent(title)}`,
+    {
+      cache: "no-store",
+    },
+  );
 
   if (!res.ok) {
     return <div>Article introuvable</div>;

@@ -23,6 +23,7 @@ Ce document décrit le modèle de données utilisé par la partie **WRITE** du p
   - `published_at` : date et heure de publication
 
 Dans cette version WRITE :
+
 - le titre de l’article sert d’**identifiant métier**,
 - les journalistes ne sont pas modélisés (un seul “journaliste courant” géré applicativement).
 
@@ -47,14 +48,15 @@ Schéma relationnel :
 
 ### 2.2. Contraintes métier (WRITE)
 
-- `title` : NOT NULL, UNIQUE  
-- `sub_title` : NOT NULL  
-- `article_lead` : NOT NULL  
-- `body` : NOT NULL  
+- `title` : NOT NULL, UNIQUE
+- `sub_title` : NOT NULL
+- `article_lead` : NOT NULL
+- `body` : NOT NULL
 - `categorie` : NOT NULL
-- `published_at` : NOT NULL  
+- `published_at` : NOT NULL
 
 Ces contraintes permettent de respecter les règles du cahier des charges :
+
 - tous les champs sont obligatoires,
 - le titre identifie de façon unique chaque article,
 - la date de publication est toujours renseignée.

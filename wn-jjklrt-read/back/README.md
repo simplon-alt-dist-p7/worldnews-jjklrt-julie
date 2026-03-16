@@ -3,11 +3,13 @@
 ## 🚀 Initialisation
 
 1. **Créer le fichier `.env`** à la racine de `back/`
+
    ```env
    PORT=3001
    ```
 
 2. **Installer les dépendances**
+
    ```bash
    npm install
    ```
@@ -37,12 +39,13 @@ back/code/
 
 **Base URL:** `/api/articles`
 
-| Méthode | Route | Query params | Description |
-|---------|-------|--------------|-------------|
-| `GET` | `/` | `recent`, `limit` | Liste tous les articles |
-| `GET` | `/:id` | - | Récupère un article par ID |
+| Méthode | Route  | Query params      | Description                |
+| ------- | ------ | ----------------- | -------------------------- |
+| `GET`   | `/`    | `recent`, `limit` | Liste tous les articles    |
+| `GET`   | `/:id` | -                 | Récupère un article par ID |
 
 ### Exemples
+
 ```bash
 GET /api/articles                    # Tous les articles
 GET /api/articles?recent=true        # Articles triés par date (récents en premier)
@@ -56,12 +59,14 @@ GET /api/articles/1                  # Article avec ID 1
 ## ⚠️ Gestion d'erreurs
 
 ### Codes HTTP
+
 - **200** : Succès
 - **400** : Paramètres invalides
 - **404** : Ressource non trouvée
 - **500** : Erreur serveur
 
 ### Cas d'erreurs fréquents
+
 - `limit` doit être un nombre positif
 - `id` doit être un nombre positif valide
 - Retourne 404 si aucun article ou article introuvable
@@ -70,4 +75,4 @@ GET /api/articles/1                  # Article avec ID 1
 
 ## 🔧 Configuration CORS
 
-Le serveur accepte uniquement les requêtes depuis `http://localhost:3000` 
+Le serveur accepte uniquement les requêtes depuis `http://localhost:3000`

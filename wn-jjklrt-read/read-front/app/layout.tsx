@@ -27,7 +27,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${share.variable} ${puritan.variable} ${junge.variable}`}>
+      <body
+        className={`${share.variable} ${puritan.variable} ${junge.variable}`}
+      >
         <Header />
         {children}
       </body>

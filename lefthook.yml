@@ -1,7 +1,7 @@
-EXAMPLE USAGE:
+# EXAMPLE USAGE:
 
-  Refer for explanation to following link:
-  https://lefthook.dev/configuration/
+#   Refer for explanation to following link:
+#   https://lefthook.dev/configuration/
 
 pre-commit:
   parallel: true

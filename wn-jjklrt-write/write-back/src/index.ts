@@ -20,7 +20,12 @@ app.use(express.json());
 
 app.use((req, res, next) => {
   const origin = req.headers.origin as string | undefined;
-  const allowed = (process.env.ALLOWED_ORIGINS || "http://localhost:3000,http://localhost:3002").split(",").map(s => s.trim()).filter(Boolean);
+  const allowed = (
+    process.env.ALLOWED_ORIGINS || "http://localhost:3000,http://localhost:3002"
+  )
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
   if (origin && allowed.includes(origin)) {
     res.setHeader("Access-Control-Allow-Origin", origin);
     res.setHeader("Access-Control-Allow-Credentials", "true");
@@ -33,7 +38,6 @@ app.use((req, res, next) => {
   }
   next();
 });
-
 
 /* ************************************************************************* */
 import type { ErrorRequestHandler } from "express";
@@ -49,7 +53,9 @@ app.use(logErrors);
 
 import type { Request, Response, NextFunction } from "express";
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  res.status(400).json({ error: err.message || "Erreur lors de la création de l'utilisateur." });
+  res.status(400).json({
+    error: err.message || "Erreur lors de la création de l'utilisateur.",
+  });
 });
 
 /* ************************************************************************* */
@@ -64,12 +70,11 @@ const port = Number(process.env.PORT) || 3002;
 
 // Wait for the database to be ready before starting the server
 async function startServer() {
-
   //debug
   console.log("DB CONFIG =>", {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
-    database: process.env.DB_NAME
+    database: process.env.DB_NAME,
   });
 
   await waitForDb();
@@ -82,6 +87,6 @@ async function startServer() {
     .on("error", (err: Error) => {
       console.error("Error:", err.message);
     });
-    }
+}
 
 startServer();

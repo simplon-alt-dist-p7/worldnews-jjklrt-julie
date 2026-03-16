@@ -15,5 +15,3 @@ pool
     );
     console.warn(error.message);
   });
-
-

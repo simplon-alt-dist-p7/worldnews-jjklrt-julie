@@ -1,6 +1,6 @@
 // Config pour le Cron: connexion à PostgreSQL
 
-import { Pool } from 'pg';
+import { Pool } from "pg";
 import type { Pool as PgPool, QueryResult } from "pg";
 
 export const pool = new Pool({

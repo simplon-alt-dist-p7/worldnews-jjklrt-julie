@@ -19,8 +19,11 @@ const Comments: React.FC<CommentsProps> = ({ articleTitle }) => {
     const fetchComments = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`http://localhost:3009/api/articles/${encodeURIComponent(articleTitle)}/comments`);
-        if (!res.ok) throw new Error("Erreur lors du chargement des commentaires");
+        const res = await fetch(
+          `http://localhost:3009/api/articles/${encodeURIComponent(articleTitle)}/comments`,
+        );
+        if (!res.ok)
+          throw new Error("Erreur lors du chargement des commentaires");
         const data = await res.json();
         setComments(data);
         setError(null);
@@ -35,7 +38,8 @@ const Comments: React.FC<CommentsProps> = ({ articleTitle }) => {
 
   if (loading) return <div>Chargement des commentaires...</div>;
   if (error) return <div>Erreur : {error}</div>;
-  if (comments.length === 0) return <div>Aucun commentaire pour cet article.</div>;
+  if (comments.length === 0)
+    return <div>Aucun commentaire pour cet article.</div>;
 
   return (
     <div>
@@ -44,7 +48,9 @@ const Comments: React.FC<CommentsProps> = ({ articleTitle }) => {
         {comments.map((comment) => (
           <li key={comment.id}>
             <div>{comment.description}</div>
-            <small>Posté le {new Date(comment.created_at).toLocaleString()}</small>
+            <small>
+              Posté le {new Date(comment.created_at).toLocaleString()}
+            </small>
           </li>
         ))}
       </ul>

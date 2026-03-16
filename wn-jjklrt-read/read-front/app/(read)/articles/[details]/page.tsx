@@ -23,7 +23,7 @@ export default function ArticleDetailPage() {
   const [favoriteError, setFavoriteError] = useState<string | null>(null);
 
   const params = useParams();
-let articleTitle = params.details as string;
+  let articleTitle = params.details as string;
 
   const articlesBaseUrl = "http://localhost:3009/api/articles";
   const encodedTitle = articleTitle ? encodeURIComponent(articleTitle) : "";
@@ -48,7 +48,9 @@ let articleTitle = params.details as string;
         return fetch(articlesBaseUrl)
           .then((res) => res.json())
           .then((data) => {
-            const foundArticle = data.find((art: Article) => art.title === articleTitle);
+            const foundArticle = data.find(
+              (art: Article) => art.title === articleTitle,
+            );
             if (!foundArticle) {
               throw new Error("Article non trouvé");
             }
@@ -142,7 +144,9 @@ let articleTitle = params.details as string;
       <div className="min-h-screen bg-white p-4 sm:p-6 md:p-8">
         <div className="container mx-auto max-w-4xl px-4">
           <div className="bg-white p-8 text-center">
-            <p className="text-black font-puritan">Chargement de l&#39;article...</p>
+            <p className="text-black font-puritan">
+              Chargement de l&#39;article...
+            </p>
           </div>
         </div>
       </div>
@@ -196,7 +200,9 @@ let articleTitle = params.details as string;
                 {isFavorite ? "Retirer des favoris" : "Ajouter aux favoris"}
               </button>
               {favoriteError && (
-                <span className="text-xs sm:text-sm text-red-600">{favoriteError}</span>
+                <span className="text-xs sm:text-sm text-red-600">
+                  {favoriteError}
+                </span>
               )}
             </div>
           </div>
@@ -223,13 +229,13 @@ let articleTitle = params.details as string;
           </div>
         </article>
 
-          {/* Section commentaires */}
-          <div className="px-6 sm:px-8 md:px-10 pb-6 sm:pb-8 md:pb-10">
-            <div className="mt-8 bg-white text-black rounded shadow p-6">
-              <AddCommentButton articleTitle={article.title} />
-              <CommentsClient articleTitle={article.title} />
-            </div>
+        {/* Section commentaires */}
+        <div className="px-6 sm:px-8 md:px-10 pb-6 sm:pb-8 md:pb-10">
+          <div className="mt-8 bg-white text-black rounded shadow p-6">
+            <AddCommentButton articleTitle={article.title} />
+            <CommentsClient articleTitle={article.title} />
           </div>
+        </div>
       </div>
     </div>
   );

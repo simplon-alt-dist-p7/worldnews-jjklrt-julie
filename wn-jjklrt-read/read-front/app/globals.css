@@ -4,24 +4,24 @@
   /* Couleurs de base */
   --background: #ffffff;
   --foreground: #171717;
-  
+
   /* Vos 4 couleurs personnalisées */
-  --primary: #C2E0E3;
-  --secondary: #5C6C73;
+  --primary: #c2e0e3;
+  --secondary: #5c6c73;
   --accent: #34d399;
-  --danger: #253337;     
+  --danger: #253337;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  
+
   /* Vos 4 couleurs personnalisées pour Tailwind */
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-accent: var(--accent);
   --color-danger: var(--danger);
-  
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-share: var(--font-share);
@@ -33,10 +33,10 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
-    
+
     /* Vos 4 couleurs personnalisées */
-    --primary: #C2E0E3;
-    --secondary: #5C6C73;
+    --primary: #c2e0e3;
+    --secondary: #5c6c73;
     --accent: #34d399;
     --danger: #253337;
   }

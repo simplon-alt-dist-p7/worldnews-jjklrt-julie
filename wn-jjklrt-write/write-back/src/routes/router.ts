@@ -20,7 +20,7 @@ router.get("/api/articles/:title", Article.readByTitle);
 router.put("/api/articles/:title", validateArticle, Article.update);
 
 // SOFT-DELETE article //
-router.delete("/api/articles/:title/soft-delete", Article.softDelete); 
+router.delete("/api/articles/:title/soft-delete", Article.softDelete);
 // -> Ordre des routes est important ici ! la route la plus spécifique (softDelete) doit être définie avant la route plus générale (destroy)
 
 // DELETE article //

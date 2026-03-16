@@ -22,10 +22,9 @@ export async function waitForDb() {
 
       console.log("Database ready!");
       return;
-
     } catch (err: any) {
       console.log("Waiting for database...");
-      await new Promise(res => setTimeout(res, 2000));
+      await new Promise((res) => setTimeout(res, 2000));
     }
   }
 }

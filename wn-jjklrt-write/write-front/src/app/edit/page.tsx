@@ -47,9 +47,9 @@ export default function Edit() {
     setError(null);
     setInfo(null);
     try {
-       const res = await fetch(
+      const res = await fetch(
         `/api/articles/${encodeURIComponent(lookup.trim())}`,
-        { cache: "no-store" }
+        { cache: "no-store" },
       );
 
       if (!res.ok) throw new Error("Article introuvable.");
@@ -86,7 +86,7 @@ export default function Edit() {
           method: "PUT",
           headers: json,
           body: JSON.stringify(form),
-        }
+        },
       );
       const body = await res.json().catch(() => ({}));
       if (!res.ok)

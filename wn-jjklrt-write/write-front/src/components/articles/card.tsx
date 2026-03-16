@@ -33,7 +33,13 @@ export default function Card({ articles }: CardProps) {
               </div>
 
               {/* <button onClick={() => OneArticlePage(x.title)}> voir </button> */}
-              <button onClick={() => router.push(`/articles/${encodeURIComponent(x.title)}`)}>VOIR</button>
+              <button
+                onClick={() =>
+                  router.push(`/articles/${encodeURIComponent(x.title)}`)
+                }
+              >
+                VOIR
+              </button>
             </div>
           ))}
         </div>

@@ -4,6 +4,7 @@ Ce dossier contient **tous les éléments liés à la couche données** du micro
 Il a pour objectif de documenter clairement **le fonctionnement de la vue matérialisée** utilisée pour consulter les articles rédigés par l’application **Journaliste**.
 
 Ce README est destiné :
+
 - à l’équipe **Lecteur**
 - à l’équipe **Journaliste**
 - à toute personne intervenant sur la base de données
@@ -13,6 +14,7 @@ Ce README est destiné :
 ## 🎯 Objectif du dossier `data`
 
 Le dossier `data` permet de :
+
 - définir le **contrat de données** entre Journaliste et Lecteur
 - stocker les **scripts SQL versionnés**
 - isoler la logique SQL du code applicatif (Node.js / Express)
@@ -57,6 +59,7 @@ data/
 ## 📄 1. Script de création de la vue matérialisée
 
 **Fichier** :
+
 ```text
 data/migrations/001_create_articles_lecture_view.sql
 ```
@@ -64,6 +67,7 @@ data/migrations/001_create_articles_lecture_view.sql
 ### Rôle
 
 Ce script :
+
 - crée le schéma `lecteur` (s’il n’existe pas)
 - crée la vue matérialisée `lecteur.articles_lecture`
 - définit le **modèle de lecture** utilisé par le microservice Lecteur
@@ -75,15 +79,14 @@ Elle ne contient que les champs nécessaires à la consultation des articles.
 
 ### Colonnes exposées
 
-| Colonne | Description |
-|------|------------|
-| `id` | Identifiant de l’article |
-| `date_publication` | Date de publication |
-| `titre` | Titre de l’article |
-| `sous-titre` | Sous-titre de l’article |
-| `chapeau` | Chapeau de l’article |
-| `resume` | Résumé (extrait du contenu) |
-
+| Colonne            | Description                 |
+| ------------------ | --------------------------- |
+| `id`               | Identifiant de l’article    |
+| `date_publication` | Date de publication         |
+| `titre`            | Titre de l’article          |
+| `sous-titre`       | Sous-titre de l’article     |
+| `chapeau`          | Chapeau de l’article        |
+| `resume`           | Résumé (extrait du contenu) |
 
 ⚠️ **La structure de cette vue constitue un contrat** entre les deux équipes.
 Toute modification doit être discutée entre Journaliste et Lecteur.
@@ -93,6 +96,7 @@ Toute modification doit être discutée entre Journaliste et Lecteur.
 ## 🔄 2. Rafraîchissement de la vue matérialisée
 
 **Fichier** :
+
 ```text
 data/refresh/refresh_articles_lecture.sql
 ```
@@ -100,10 +104,12 @@ data/refresh/refresh_articles_lecture.sql
 ### Pourquoi un rafraîchissement ?
 
 Une vue matérialisée PostgreSQL :
+
 - **ne se met pas à jour automatiquement**
 - représente un **instantané** des données
 
 Le rafraîchissement permet de :
+
 - rendre visibles les nouveaux articles publiés
 - mettre à jour les modifications existantes
 
@@ -116,6 +122,7 @@ REFRESH MATERIALIZED VIEW lecteur.articles_lecture;
 ### Quand rafraîchir ?
 
 Le rafraîchissement peut être déclenché :
+
 - après la création ou la publication d’un article
 - manuellement par un membre de l’équipe
 - via un script ou un job planifié
@@ -131,6 +138,7 @@ Le rafraîchissement peut être déclenché :
 - Il ne doit pas accéder directement à `journaliste.article`
 
 Cela garantit :
+
 - un découplage fort entre les microservices
 - une meilleure sécurité
 - une architecture plus réaliste
@@ -159,4 +167,3 @@ la couche `back` **consomme** la structure.
 ---
 
 📌 Toute question ou modification concernant ce dossier doit être discutée entre les équipes **Journaliste** et **Lecteur** afin de préserver le contrat de données.
-

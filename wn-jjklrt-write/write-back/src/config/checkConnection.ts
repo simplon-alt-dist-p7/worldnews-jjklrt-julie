@@ -15,5 +15,3 @@ client
     );
     console.warn(error.message);
   });
-
-

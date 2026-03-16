@@ -20,10 +20,11 @@ Le but est de **démontrer l’architecture WRITE**, pas de livrer un produit fi
 ### US1 – Rédiger un article
 
 > En tant que journaliste, je peux créer un article avec :
-> - un titre  
-> - un sous-titre  
-> - un chapeau  
-> - un corps  
+>
+> - un titre
+> - un sous-titre
+> - un chapeau
+> - un corps
 
 **Exigences :**
 

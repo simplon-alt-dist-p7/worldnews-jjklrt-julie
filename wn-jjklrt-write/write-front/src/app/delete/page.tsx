@@ -35,14 +35,16 @@ export default function DeleteArticle() {
     try {
       const res = await fetch(
         `/api/articles/${encodeURIComponent(lookup.trim())}`,
-        { cache: "no-store" }
+        { cache: "no-store" },
       );
 
       if (!res.ok) throw new Error("Article introuvable.");
 
       const data: Article = await res.json();
       setArticle(data);
-      setInfo(`Article chargé (${new Date(data.published_at).toLocaleString()})`);
+      setInfo(
+        `Article chargé (${new Date(data.published_at).toLocaleString()})`,
+      );
     } catch (err: any) {
       setArticle(null);
       setError(err?.message ?? "Article introuvable.");
@@ -56,9 +58,9 @@ export default function DeleteArticle() {
     if (!article) return;
 
     const confirmed = window.confirm(
-    `⚠️SUPPRESSION LOGIQUE:\n
+      `⚠️SUPPRESSION LOGIQUE:\n
     L'article "${article.title}" sera retiré de l'affichage public mais restera en base de données.\n
-    Souhaitez vous continuer ?`
+    Souhaitez vous continuer ?`,
     );
 
     if (!confirmed) return;
@@ -71,7 +73,7 @@ export default function DeleteArticle() {
       const res = await fetch(
         // `${API}/api/articles/${encodeURIComponent(article.title)}`,
         `/api/articles/${encodeURIComponent(article.title)}/soft-delete`, // soft-delete pour mise en archive
-        { method: "DELETE" }
+        { method: "DELETE" },
       );
 
       const body = await res.json().catch(() => ({}));
@@ -79,7 +81,7 @@ export default function DeleteArticle() {
 
       if (!res.ok)
         throw new Error(
-          body.message || body.error || "Erreur lors de la mise en archive ❌."
+          body.message || body.error || "Erreur lors de la mise en archive ❌.",
         );
 
       setArticle(null);
@@ -107,7 +109,11 @@ export default function DeleteArticle() {
             placeholder="Titre actuel"
             required
           />
-          <button type="submit" disabled={loading} className={styles.chargerButton}>
+          <button
+            type="submit"
+            disabled={loading}
+            className={styles.chargerButton}
+          >
             {loading ? "Chargement..." : "Charger"}
           </button>
         </div>
