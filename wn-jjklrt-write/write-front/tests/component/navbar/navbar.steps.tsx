@@ -1,5 +1,5 @@
-import { loadFeature, defineFeature } from "jest-cucumber";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { defineFeature, loadFeature } from "jest-cucumber";
 import "@testing-library/jest-dom";
 
 // import du composant Navbar à tester
@@ -9,17 +9,17 @@ import Navbar from "../../../src/components/navbar/navbar";
 const feature = loadFeature("./tests/component/navbar/navbar.feature");
 
 defineFeature(feature, (test) => {
-  let container: HTMLElement;
+  let _container: HTMLElement;
 
   // 1er test correspondant au 1er scénario Gherkin
   test("Affichage des liens de navigation", ({ given, then }) => {
     given("l'utilisateur est sur la page principale", () => {
       const rendered = render(<Navbar />);
-      container = rendered.container;
+      _container = rendered.container;
     });
 
     then("la navbar affiche les liens suivants", (table) => {
-      const links = table.map((row: any) => row.Articles); // Articles est le nom de ma colonne dans le tableau Gherkin
+      const links = table.map((row: Record<string, string>) => row.Articles); // Articles est le nom de ma colonne dans le tableau Gherkin
 
       links.forEach((linkText: string) => {
         const link = screen.getByRole("link", { name: linkText });
@@ -46,7 +46,11 @@ defineFeature(feature, (test) => {
   });
 
   // 3eme test correspondant au 3eme scénario Gherkin
-  test("Navigation vers la page de modification d'article", ({ given, when, then }) => {
+  test("Navigation vers la page de modification d'article", ({
+    given,
+    when,
+    then,
+  }) => {
     given("l'utilisateur est sur la page principale", () => {
       render(<Navbar />);
     });
@@ -63,7 +67,11 @@ defineFeature(feature, (test) => {
   });
 
   // 4eme test correspondant au 4eme scénario Gherkin
-  test("Navigation vers la page de suppression d'article", ({ given, when, then }) => {
+  test("Navigation vers la page de suppression d'article", ({
+    given,
+    when,
+    then,
+  }) => {
     given("l'utilisateur est sur la page principale", () => {
       render(<Navbar />);
     });

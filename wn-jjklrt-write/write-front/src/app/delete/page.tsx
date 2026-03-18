@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import styles from "./page.module.css";
-import Card from "@/components/articles/card";
 
 type Article = {
   title: string;
@@ -45,9 +44,14 @@ export default function DeleteArticle() {
       setInfo(
         `Article chargé (${new Date(data.published_at).toLocaleString()})`,
       );
-    } catch (err: any) {
-      setArticle(null);
-      setError(err?.message ?? "Article introuvable.");
+    } catch (err) {
+      if (err instanceof Error) {
+        setArticle(null);
+        setError(err.message ?? "Article introuvable.");
+      } else {
+        setArticle(null);
+        setError("Article introuvable.");
+      }
     } finally {
       setLoading(false);
     }
@@ -87,8 +91,12 @@ export default function DeleteArticle() {
       setArticle(null);
       setLookup("");
       setInfo("Article archivé avec succès ✅.");
-    } catch (err: any) {
-      setError(err?.message ?? "Erreur lors de la mise en archive ❌.");
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message ?? "Erreur lors de la mise en archive ❌.");
+      } else {
+        setError("Erreur lors de la mise en archive ❌.");
+      }
     } finally {
       setDeleting(false);
     }
@@ -140,6 +148,7 @@ export default function DeleteArticle() {
           </div>
 
           <button
+            type="button"
             className={styles.deleteButton}
             onClick={remove}
             disabled={deleting}

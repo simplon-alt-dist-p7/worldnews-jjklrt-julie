@@ -65,9 +65,14 @@ export default function Edit() {
       setInfo(
         `Article chargé (${new Date(data.published_at).toLocaleString()})`,
       );
-    } catch (err: any) {
-      setArticle(null);
-      setError(err?.message ?? "Article introuvable.");
+    } catch (err) {
+      if (err instanceof Error) {
+        setArticle(null);
+        setError(err.message ?? "Article introuvable.");
+      } else {
+        setArticle(null);
+        setError("Article introuvable.");
+      }
     } finally {
       setLoading(false);
     }
@@ -101,8 +106,12 @@ export default function Edit() {
       setInfo(
         `Article mis à jour (${new Date(updated.published_at).toLocaleString()})`,
       );
-    } catch (err: any) {
-      setError(err?.message ?? "Erreur lors de la mise à jour.");
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message ?? "Erreur lors de la mise à jour.");
+      } else {
+        setError("Erreur lors de la mise à jour.");
+      }
     } finally {
       setSaving(false);
     }

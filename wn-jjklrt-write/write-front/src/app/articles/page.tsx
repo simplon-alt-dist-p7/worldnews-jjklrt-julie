@@ -51,8 +51,8 @@
 // }
 
 "use client";
-import Card from "@/components/articles/card";
 import { useEffect, useState } from "react";
+import Card from "@/components/articles/card";
 import styles from "./articles.module.css";
 
 type Article = {

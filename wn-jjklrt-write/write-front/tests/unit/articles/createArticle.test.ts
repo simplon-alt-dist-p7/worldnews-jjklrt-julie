@@ -14,7 +14,7 @@ describe("createArticle", () => {
   });
 
   it("retourne success=true si API OK", async () => {
-    const mockedFetch = global.fetch as jest.Mock;
+    const mockedFetch = global.fetch as unknown as jest.Mock;
 
     mockedFetch.mockResolvedValue({
       ok: true,

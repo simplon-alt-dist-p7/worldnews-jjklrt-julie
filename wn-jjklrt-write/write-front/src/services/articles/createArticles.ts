@@ -1,6 +1,10 @@
-// logique métier pour la création d'articles
+// logique applicative pour la création d'articles
 
-export async function createArticle(form: any) {
+export interface ArticleForm {
+  [key: string]: unknown;
+}
+
+export async function createArticle(form: ArticleForm) {
   try {
     const res = await fetch("/api/articles", {
       method: "POST",

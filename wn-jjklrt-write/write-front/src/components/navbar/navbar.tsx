@@ -1,5 +1,5 @@
-import styles from "./navbar.module.css";
 import Link from "next/link"; // pour les performances, le prefetching, et la navigation client-side sans rechargement de page
+import styles from "./navbar.module.css";
 
 export default function Navbar() {
   return (
