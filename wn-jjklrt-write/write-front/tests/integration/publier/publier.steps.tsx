@@ -23,11 +23,14 @@ defineFeature(feature, (test) => {
 
     when("il remplit le formulaire avec des données valides", async () => {
       await userEvent.type(screen.getByPlaceholderText("Titre"), "Mon article");
-      await userEvent.type(screen.getByPlaceholderText("Sous-titre"), "Sous titre");
+      await userEvent.type(
+        screen.getByPlaceholderText("Sous-titre"),
+        "Sous titre",
+      );
       await userEvent.type(screen.getByPlaceholderText("Chapeau"), "Résumé");
       await userEvent.type(
         screen.getByPlaceholderText("Corps de l'article"),
-        "Contenu"
+        "Contenu",
       );
     });
 
@@ -38,7 +41,7 @@ defineFeature(feature, (test) => {
     then("un message de succès s'affiche", async () => {
       await waitFor(() => {
         expect(
-          screen.getByText("Article publié avec succès !")
+          screen.getByText("Article publié avec succès !"),
         ).toBeInTheDocument();
       });
     });
