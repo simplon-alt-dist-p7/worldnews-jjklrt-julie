@@ -1,8 +1,9 @@
 "use client";
-import styles from "./publier.module.css";
 import { useState } from "react";
+import { validateArticle } from "@/domain/articles/validateArticle";
+import styles from "./publier.module.css";
 
-export default function publier() {
+export default function Publier() {
   const categories: string[] = [
     "International",
     "Actualités locales",
@@ -36,9 +37,20 @@ export default function publier() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     setErrors([]);
     setSuccess(false);
+
+    // validation métier avant d'appeler l'API (ex: titre requis)
+    const validationErrors = validateArticle(form);
+
+    if (validationErrors.length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
     try {
+      // logique applicative pour la création d'articles
       const res = await fetch("/api/articles", {
         method: "POST",
         headers: {
@@ -51,6 +63,8 @@ export default function publier() {
         setErrors(data?.errors ?? [data?.error ?? "Erreur inconnue"]);
         return;
       }
+
+      // succès
       setSuccess(true);
       setForm(initialForm);
     } catch {
@@ -61,7 +75,7 @@ export default function publier() {
   return (
     <div className={styles.publierForm}>
       <h1>Publier un article</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} noValidate>
         <p>
           Veuillez remplir le formulaire ci-dessous avec tous les champs requis
           pour publier un article.
@@ -126,8 +140,8 @@ export default function publier() {
         <button type="submit">ENVOYER</button>
         {errors.length > 0 && (
           <ul className={`${styles.error} ${styles.message}`}>
-            {errors.map((err, i) => (
-              <li key={i}>{err}</li>
+            {errors.map((err) => (
+              <li key={err}>{err}</li>
             ))}
           </ul>
         )}

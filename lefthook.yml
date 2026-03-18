@@ -6,15 +6,18 @@
 pre-commit:
   parallel: true
   jobs:
-    - name: eslint
-      glob: "*.{js,ts,jsx,tsx}"
-      run: npx eslint {staged_files}
+    - name: prettier fix
+      glob: "*.{js,ts,jsx,tsx,json,md}"
+      run: npx prettier --write {staged_files}
 
-    - name: prettier
+    - name: prettier check
       glob: "*.{js,ts,jsx,tsx,json,md}"
       run: npx prettier --check {staged_files}
+
+    - name: run tests
+      run: npm --prefix wn-jjklrt-write/write-front test
 
 pre-push:
   jobs:
     - name: run tests
-      run: npm test
+      run: npm --prefix wn-jjklrt-write/write-front test
