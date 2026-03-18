@@ -2,13 +2,16 @@ import { loadFeature, defineFeature } from "jest-cucumber";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-import Navbar from "../../src/components/navbar/navbar";
+// import du composant Navbar à tester
+import Navbar from "../../../src/components/navbar/navbar";
 
-const feature = loadFeature("./tests/navbar/navbar.feature"); // chargement du scenario Gherkin depuis le fichier "".feature" par jest-cucumber
+// chargement du scenario Gherkin depuis le fichier "".feature" par jest-cucumber
+const feature = loadFeature("./tests/component/navbar/navbar.feature");
 
 defineFeature(feature, (test) => {
   let container: HTMLElement;
 
+  // 1er test correspondant au 1er scénario Gherkin
   test("Affichage des liens de navigation", ({ given, then }) => {
     given("l'utilisateur est sur la page principale", () => {
       const rendered = render(<Navbar />);
@@ -25,6 +28,7 @@ defineFeature(feature, (test) => {
     });
   });
 
+  // 2eme test correspondant au 2eme scénario Gherkin
   test("Navigation vers la page d'ajout d'article", ({ given, when, then }) => {
     given("l'utilisateur est sur la page principale", () => {
       render(<Navbar />);
@@ -41,11 +45,8 @@ defineFeature(feature, (test) => {
     });
   });
 
-  test("Navigation vers la page de modification d'article", ({
-    given,
-    when,
-    then,
-  }) => {
+  // 3eme test correspondant au 3eme scénario Gherkin
+  test("Navigation vers la page de modification d'article", ({ given, when, then }) => {
     given("l'utilisateur est sur la page principale", () => {
       render(<Navbar />);
     });
@@ -61,11 +62,8 @@ defineFeature(feature, (test) => {
     });
   });
 
-  test("Navigation vers la page de suppression d'article", ({
-    given,
-    when,
-    then,
-  }) => {
+  // 4eme test correspondant au 4eme scénario Gherkin
+  test("Navigation vers la page de suppression d'article", ({ given, when, then }) => {
     given("l'utilisateur est sur la page principale", () => {
       render(<Navbar />);
     });

@@ -10,7 +10,7 @@ const config = {
   testEnvironment: "jsdom",
 
   // Indiquer à Jest que les formats de fichiers ci dessous sont aussi des tests
-  testMatch: ["**/*.steps.ts", "**/*.steps.tsx"],
+  testMatch: ["**/*.steps.ts", "**/*.steps.tsx", "**/*.test.ts", "**/*.test.tsx"],
 
   // Permettre à Jest de comprendre les imports TypeScript
   moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
@@ -21,15 +21,16 @@ const config = {
   },
 
   // Permettre à Jest de simuler les imports de fichiers CSS en utilisant une bibliothèque qui retourne un objet vide
+  // Permettre à Jest de simuler les imports de composants Next.js (comme Link) en utilisant un mock personnalisé qui retourne un composant simple
   moduleNameMapper: {
     "\\.(css|less|scss|sass)$": "identity-obj-proxy",
   },
 
-  // Permettre à Jest de simuler les imports de composants Next.js (comme Link) en utilisant un mock personnalisé qui retourne un composant simple
   moduleNameMapper: {
     "\\.(css|less|scss|sass)$": "identity-obj-proxy",
     "^next/link$": require.resolve("./test-utils/mockNextLink.js"),
   },
 };
 
+// module.exports = config;
 module.exports = config;
