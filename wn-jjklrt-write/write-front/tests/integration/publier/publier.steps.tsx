@@ -44,21 +44,36 @@ defineFeature(feature, (test) => {
           screen.getByText("Article publié avec succès !"),
         ).toBeInTheDocument();
       });
-    });
-  });
 
-  test("Erreur si le titre est vide", ({ given, when, then }) => {
-    given("l'utilisateur est sur la page de publication", () => {
-      render(<Publier />);
+      // ✅ Vérification de l'appel API
+      expect(global.fetch).toHaveBeenCalledWith("/api/articles", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: "Mon article",
+          sub_title: "Sous titre",
+          article_lead: "Résumé",
+          body: "Contenu",
+          categorie: "International",
+        }),
+      });
     });
 
-    when("il soumet le formulaire sans titre", async () => {
-      await userEvent.click(screen.getByText("ENVOYER"));
-    });
+    test("Erreur si le titre est vide", ({ given, when, then }) => {
+      given("l'utilisateur est sur la page de publication", () => {
+        render(<Publier />);
+      });
 
-    then("un message d'erreur s'affiche", async () => {
-      await waitFor(() => {
-        expect(screen.getByText("Le titre est requis")).toBeInTheDocument();
+      when("il soumet le formulaire sans titre", async () => {
+        await userEvent.click(screen.getByText("ENVOYER"));
+      });
+
+      then("un message d'erreur s'affiche", async () => {
+        await waitFor(() => {
+          expect(screen.getByText("Le titre est requis")).toBeInTheDocument();
+        });
       });
     });
   });
