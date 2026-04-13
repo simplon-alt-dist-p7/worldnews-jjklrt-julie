@@ -77,6 +77,9 @@ async function startServer() {
     database: process.env.DB_NAME,
   });
 
+  // debug pour vérifier que la variable d'environnement DATABASE_URL est bien définie (utile pour le déploiement sur Render)
+  console.log("DATABASE_URL:", process.env.DATABASE_URL ? "OK" : "MISSING");
+
   await waitForDb();
 
   // Start the server and listen on the specified port
