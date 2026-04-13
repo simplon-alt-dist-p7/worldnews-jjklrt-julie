@@ -18,16 +18,30 @@ console.log("DB_NAME:", DB_NAME);
 console.log("DB_PASSWORD:", DB_PASSWORD);
 // Create a new PostgreSQL client using environment variables
 
-const client = new Pool({
-  host: process.env.DB_HOST,
-  port: Number(process.env.DB_PORT),
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  ssl: false,
-});
+// const client = new Pool({
+//   host: process.env.DB_HOST,
+//   port: Number(process.env.DB_PORT),
+//   user: process.env.DB_USER,
+//   password: process.env.DB_PASSWORD,
+//   database: process.env.DB_NAME,
+//   ssl: false,
+// });
 
-export default client;
+// Ajustement du Pool pour Render (qui utilise une variable d'environnement DATABASE_URL pour la connexion à la base de données) :
+const pool = process.env.DATABASE_URL
+  ? new Pool({
+      connectionString: process.env.DATABASE_URL,
+      ssl: false, // ou { rejectUnauthorized: false } si External URL
+    })
+  : new Pool({
+      host: process.env.DB_HOST,
+      port: Number(process.env.DB_PORT),
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
+    });
+
+export default pool;
 
 type Pg = PgPool;
 type Result = QueryResult<any>;
