@@ -19,7 +19,8 @@ defineFeature(feature, (test) => {
     });
 
     then("la navbar affiche les liens suivants", (table) => {
-      const links = table.map((row: Record<string, string>) => row.Articles); // Articles est le nom de ma colonne dans le tableau Gherkin
+      // Articles est le nom de ma colonne dans le tableau Gherkin
+      const links = table.map((row: Record<string, string>) => row.Articles);
 
       links.forEach((linkText: string) => {
         const link = screen.getByRole("link", { name: linkText });
