@@ -25,4 +25,5 @@ VALUES
 'Économie'
 );
 
-REFRESH MATERIALIZED VIEW reader.articles_lecture;
+-- Commenté temporairement pour éviter les erreurs lors de l'initialisation de la base de données, à décommenter une fois que tout est en place :
+-- REFRESH MATERIALIZED VIEW reader.articles_lecture;
