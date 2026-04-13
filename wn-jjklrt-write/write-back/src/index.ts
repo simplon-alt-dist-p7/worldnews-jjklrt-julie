@@ -1,6 +1,7 @@
 import express from "express";
 // import "./config/checkConnection"; -> moved to waitForDb
 import { waitForDb } from "./config/waitForDb";
+import { runMigrations } from "./scripts/migrate";
 
 const app = express();
 
@@ -70,6 +71,11 @@ const port = Number(process.env.PORT) || 3002;
 
 // Wait for the database to be ready before starting the server
 async function startServer() {
+  await waitForDb();
+
+  console.log("🚀 Running migrations...");
+  await runMigrations();
+
   //debug
   console.log("DB CONFIG =>", {
     host: process.env.DB_HOST,
@@ -80,7 +86,7 @@ async function startServer() {
   // debug pour vérifier que la variable d'environnement DATABASE_URL est bien définie (utile pour le déploiement sur Render)
   console.log("DATABASE_URL:", process.env.DATABASE_URL ? "OK" : "MISSING");
 
-  await waitForDb();
+  // await waitForDb();
 
   // Start the server and listen on the specified port
   app

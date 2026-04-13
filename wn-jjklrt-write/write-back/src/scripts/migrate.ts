@@ -15,21 +15,17 @@ const pool = process.env.DATABASE_URL
       database: process.env.DB_NAME,
     });
 
-async function runMigrations() {
+export async function runMigrations() {
   try {
     console.log("🚀 Running migrations...");
 
-    // 📁 chemins vers tes fichiers
-    const schemaPath = path.join(__dirname, "../../../database/schema.sql");
+    const schemaPath = path.join(process.cwd(), "database/schema.sql");
+    const seedPath = path.join(process.cwd(), "docker/db-init/05_seed.sql");
 
-    const seedPath = path.join(
-      __dirname,
-      "../../../../docker/db-init/05_seed.sql",
-    );
-
-    // 📖 lire les fichiers
     const schemaSql = fs.readFileSync(schemaPath, "utf-8");
     const seedSql = fs.readFileSync(seedPath, "utf-8");
+    console.log("Schema path:", schemaPath);
+    console.log("Seed path:", seedPath);
 
     console.log("📦 Creating schema...");
     await pool.query(schemaSql);
@@ -38,10 +34,9 @@ async function runMigrations() {
     await pool.query(seedSql);
 
     console.log("✅ Migrations completed !");
-    process.exit(0);
   } catch (err) {
     console.error("❌ Migration error:", err);
-    process.exit(1);
+    throw err;
   }
 }
 
