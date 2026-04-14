@@ -25,6 +25,10 @@ RUN npm ci --omit=dev
 
 COPY --from=builder /app/dist ./dist
 
+# Copier les fichiers SQL nécessaires
+COPY database ./database
+COPY docker/db-init ./docker/db-init
+
 ENV NODE_ENV=production
 
 EXPOSE 3002
